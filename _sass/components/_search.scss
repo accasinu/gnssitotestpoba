@@ -184,3 +184,82 @@
     box-sizing: initial;
   }
 }
+
+.post-search__filters {
+  display: grid;
+  grid-template-columns: minmax(12rem, 2fr) repeat(2, minmax(8rem, 1fr)) minmax(9rem, 1fr) auto;
+  align-items: end;
+  gap: map-get($spacers, 3);
+  padding: map-get($spacers, 4) 0;
+  border-bottom: 1px solid $border-color;
+  @include media-breakpoint-down(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include media-breakpoint-down(md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.post-search__field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: map-get($spacers, 1);
+  font-size: map-get($base, font-size-sm);
+  font-weight: map-get($base, font-weight-bold);
+  & > input,
+  & > select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: $button-height-lg;
+    padding: map-get($button, padding-y) map-get($button, padding-x);
+    color: $text-color;
+    background-color: $background-color;
+    border: 1px solid $border-color;
+    border-radius: map-get($base, border-radius);
+    font: inherit;
+  }
+}
+
+.post-search__clear {
+  white-space: nowrap;
+}
+
+.post-search__count {
+  margin: map-get($spacers, 3) 0;
+  color: $text-color-l;
+}
+
+.post-search__results {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.post-search__result {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: map-get($spacers, 3);
+  padding: map-get($spacers, 3) 0;
+  border-bottom: 1px solid $border-color;
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+    gap: map-get($spacers, 1);
+  }
+}
+
+.post-search__results .post-search__title {
+  font-family: "Gasoek One", sans-serif;
+  font-weight: 400;
+  @include link-colors($text-color, $main-color-1);
+}
+
+.post-search__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: map-get($spacers, 2);
+  color: $text-color;
+  font-size: map-get($base, font-size-sm);
+}

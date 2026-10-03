@@ -1,0 +1,9 @@
+---
+# Light variant for automatic device theme selection.
+---
+
+@import
+    "skins/default",
+    "skins/highlight/{{ site.highlight_theme | default: site.data.variables.default.highlight_theme }}",
+    "theme"
+;

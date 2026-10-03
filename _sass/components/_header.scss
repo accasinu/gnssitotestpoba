@@ -1,5 +1,6 @@
 .header {
   background: $header-background;
+  box-shadow: 0 2px 6px rgba(#000, .16);
   a {
     font-weight: map-get($base, font-weight);
     text-decoration: none !important;
@@ -51,13 +52,6 @@
       height: map-get($layout, header-height-sm);
     }
   }
-  & > .search-button {
-    display: none;
-    margin-left: map-get($spacers, 2);
-    @include media-breakpoint-down(md) {
-      @include flexbox();
-    }
-  }
 }
 
 .header__brand {
@@ -75,6 +69,8 @@
   }
   & > a {
     display: inline-block;
+    font-family: "Gasoek One", sans-serif;
+    font-weight: 400;
     font-size: map-get($base, font-size-h4);
     @include media-breakpoint-down(md) {
       font-size: map-get($base, font-size-h4-small);
@@ -84,6 +80,9 @@
 
 .navigation {
   @include overflow(auto, "x");
+  @include media-breakpoint-down(md) {
+    overflow: visible;
+  }
   & > ul {
     height: map-get($layout, header-height);
     padding-bottom: 0;
@@ -96,16 +95,24 @@
     @include align-items(center);
     @include media-breakpoint-down(md) {
       height: auto;
-    }
-    .search-button {
-      @include media-breakpoint-down(md) {
-        display: none;
-      }
+      @include flex-wrap(wrap);
     }
   }
 }
 
+.navigation__search-button {
+  font-family: "Gasoek One", sans-serif;
+  font-weight: 400;
+  & > .fas {
+    margin-right: map-get($spacers, 1);
+  }
+}
+
 .navigation__item {
+  & > a {
+    font-family: "Gasoek One", sans-serif;
+    font-weight: 400;
+  }
   &::after {
     display: block;
     margin-bottom: -4px;
@@ -113,6 +120,25 @@
     @include split-line(bottom, 4px, transparent);
   }
 }
+
+.navigation__language-flag {
+  display: block;
+  width: 1.5rem;
+  height: 1rem;
+  border-radius: map-get($base, border-radius-sm);
+  object-fit: cover;
+}
+
+.search-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
 .navigation__item--active {
   a {
     @include link-colors($main-color-1, $main-color-1);

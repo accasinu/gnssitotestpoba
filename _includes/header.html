@@ -1,3 +1,5 @@
+{%- include snippets/get-locale-string.html key='SEARCH' -%}
+{%- assign _locale_search = __return -%}
 {%- if include.theme == 'dark' -%}
   <header class="header header--dark" {%- if include.background -%} style="background: {{ include.background }};" {%- endif -%}>
 {%- elsif include.theme == 'light' -%}
@@ -15,27 +17,37 @@
             <a title="{%- if site.description -%}{{ site.description }}{%- endif -%}" href="{{ __return }}">{{ site.title }}</a>
           {%- endif -%}
         </div>
-        {%- if site.search.provider -%}
-          <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
-        {%- endif -%}
       </div>
       {%- if site.data.navigation.header -%}
       <nav class="navigation">
         <ul>
           {%- for _item in site.data.navigation.header -%}
+            {%- if _item.lang == nil or _item.lang == site.active_lang -%}
+            {%- if _item.target_lang -%}
+              {%- assign _current_page_path = page.url | replace: '//', '/' | remove_first: '/srd/' | remove_first: 'srd/' | remove_first: '/srd' | replace: 'index.html', '' -%}
+              {%- if _item.target_lang == 'srd' -%}
+                {%- include snippets/prepend-path.html path=_current_page_path prepend_path='/srd' -%}
+              {%- else -%}
+                {%- include snippets/prepend-path.html path=_current_page_path -%}
+              {%- endif -%}
+              {%- assign _nav_url = __return -%}
+            {%- else -%}
             {%- include snippets/get-nav-url.html path=_item.url -%}
             {%- assign _nav_url = __return -%}
+            {%- endif -%}
             {%- include snippets/get-nav-url.html path=page.url -%}
             {%- assign _page_url = __return -%}
             {%- include snippets/get-string-from-locale-config.html locale=_item.titles -%}
             {%- if _nav_url == _page_url or page.nav_key and _item.key and page.nav_key == _item.key -%}
-              <li class="navigation__item navigation__item--active"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+              <li class="navigation__item navigation__item--active"><a {% if _item.target_lang %}{% static_href %}href="{{ _nav_url }}"{% endstatic_href %}{% else %}href="{{ _nav_url }}"{% endif %}{% if _item.flag %} aria-label="{{ _item.title }}" title="{{ _item.title }}"{% endif %}>{%- if _item.flag -%}{%- include snippets/get-nav-url.html path=_item.flag -%}<img class="navigation__language-flag" src="{{ __return }}" alt="" width="30" height="20">{%- elsif _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
             {%- else -%}
-              <li class="navigation__item"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+              <li class="navigation__item"><a {% if _item.target_lang %}{% static_href %}href="{{ _nav_url }}"{% endstatic_href %}{% else %}href="{{ _nav_url }}"{% endif %}{% if _item.flag %} aria-label="{{ _item.title }}" title="{{ _item.title }}"{% endif %}>{%- if _item.flag -%}{%- include snippets/get-nav-url.html path=_item.flag -%}<img class="navigation__language-flag" src="{{ __return }}" alt="" width="30" height="20">{%- elsif _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+            {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
           {%- if site.search.provider -%}
-            <li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li>
+            {%- include snippets/get-nav-url.html path='/search.html' -%}
+            <li><a class="button button--secondary button--circle search-button" href="{{ __return }}" aria-label="{{ _locale_search }}" title="{{ _locale_search }}">{%- include svg/icon/search.svg -%}</a></li>
           {%- endif -%}
         </ul>
       </nav>

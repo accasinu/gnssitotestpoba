@@ -1,0 +1,76 @@
+---
+layout: page
+titles:
+  en: Search posts
+  it: Cerca post
+  srd: Chirca is post
+---
+{%- include snippets/get-locale-string.html key='SEARCH_BY_TITLE' -%}
+{%- assign _search_by_title = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_FROM_DATE' -%}
+{%- assign _search_from_date = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_TO_DATE' -%}
+{%- assign _search_to_date = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_TAG' -%}
+{%- assign _search_tag = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_ALL_TAGS' -%}
+{%- assign _search_all_tags = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_CLEAR' -%}
+{%- assign _search_clear = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_RESULT_COUNT' -%}
+{%- assign _search_result_count = __return -%}
+{%- include snippets/get-locale-string.html key='SEARCH_NO_RESULTS' -%}
+{%- assign _search_no_results = __return -%}
+
+<section class="post-search">
+  <form class="post-search__filters" id="post-search-form">
+    <label class="post-search__field" for="post-search-title">
+      <span>{{ _search_by_title }}</span>
+      <input id="post-search-title" name="title" type="search" autocomplete="off">
+    </label>
+    <label class="post-search__field" for="post-search-from">
+      <span>{{ _search_from_date }}</span>
+      <input id="post-search-from" name="from" type="date">
+    </label>
+    <label class="post-search__field" for="post-search-to">
+      <span>{{ _search_to_date }}</span>
+      <input id="post-search-to" name="to" type="date">
+    </label>
+    <label class="post-search__field" for="post-search-tag">
+      <span>{{ _search_tag }}</span>
+      <select id="post-search-tag" name="tag">
+        <option value="">{{ _search_all_tags }}</option>
+      </select>
+    </label>
+    <button class="button button--secondary button--rounded post-search__clear" type="reset">{{ _search_clear }}</button>
+  </form>
+
+  <p class="post-search__count" id="post-search-count" data-count-template="{{ _search_result_count | escape }}" aria-live="polite"></p>
+  <p id="post-search-empty" hidden>{{ _search_no_results }}</p>
+  <ul class="post-search__results" id="post-search-results"></ul>
+</section>
+
+{%- assign _search_posts = site.posts | where: 'lang', site.active_lang -%}
+<script type="application/json" id="post-search-data">
+[
+  {%- for _post in _search_posts -%}
+    {%- unless forloop.first -%},{%- endunless -%}
+    {%- assign _post_prefix = site.baseurl -%}
+    {%- if site.active_lang != site.default_lang -%}
+      {%- assign _post_lang_prefix = '/' | append: site.active_lang -%}
+      {%- assign _post_prefix = _post_prefix | append: _post_lang_prefix -%}
+    {%- endif -%}
+    {%- include snippets/prepend-path.html path=_post.url prepend_path=_post_prefix -%}
+    {%- assign _post_search_url = __return -%}
+    {
+      "title": {{ _post.title | jsonify }},
+      "url": {{ _post_search_url | jsonify }},
+      "date": {{ _post.date | date: '%Y-%m-%d' | jsonify }},
+      "tags": {{ _post.tags | jsonify }}
+    }
+  {%- endfor -%}
+]
+</script>
+<script>
+  {%- include scripts/components/post-search.js -%}
+</script>

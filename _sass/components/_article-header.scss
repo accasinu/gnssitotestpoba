@@ -8,6 +8,8 @@
     display: inline;
   }
   h1 {
+    font-family: "Gasoek One", sans-serif;
+    font-weight: 400;
     word-wrap: break-word;
   }
   .split-space {
@@ -16,6 +18,12 @@
   .edit-on-github {
     text-decoration: none !important;
   }
+}
+
+.article-list .item__header,
+.article-list .card__header {
+  font-family: "Gasoek One", sans-serif;
+  font-weight: 400;
 }
 
 .article__header--overlay {

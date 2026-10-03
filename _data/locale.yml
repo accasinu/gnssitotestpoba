@@ -5,6 +5,14 @@ en: &EN
   SUBSCRIBE               : "Subscribe"
   READMORE                : "Read more"
   SEARCH                  : "Search"
+  SEARCH_BY_TITLE         : "Post title"
+  SEARCH_FROM_DATE        : "Date from"
+  SEARCH_TO_DATE          : "Date to"
+  SEARCH_TAG               : "Tag"
+  SEARCH_ALL_TAGS         : "All tags"
+  SEARCH_CLEAR            : "Clear filters"
+  SEARCH_RESULT_COUNT     : "Results: [COUNT]"
+  SEARCH_NO_RESULTS       : "No posts match the selected filters."
   CANCEL                  : "Cancel"
   VIEWS                   : "views"
   LAST_UPDATED            : "Last updated"
@@ -29,6 +37,30 @@ en-CA:
   <<: *EN
 en-AU:
   <<: *EN
+
+## => Italian and Sardinian
+###########################
+it:
+  SEARCH: "Cerca"
+  SEARCH_BY_TITLE: "Titolo del post"
+  SEARCH_FROM_DATE: "Data da"
+  SEARCH_TO_DATE: "Data a"
+  SEARCH_TAG: "Tag"
+  SEARCH_ALL_TAGS: "Tutti i tag"
+  SEARCH_CLEAR: "Azzera filtri"
+  SEARCH_RESULT_COUNT: "Risultati: [COUNT]"
+  SEARCH_NO_RESULTS: "Nessun post corrisponde ai filtri selezionati."
+
+srd:
+  SEARCH: "Chirca"
+  SEARCH_BY_TITLE: "Tìtulu de sa publicatzione"
+  SEARCH_FROM_DATE: "Data dae"
+  SEARCH_TO_DATE: "Data a"
+  SEARCH_TAG: "Tag"
+  SEARCH_ALL_TAGS: "Totu is tag"
+  SEARCH_CLEAR: "Azzera is filtros"
+  SEARCH_RESULT_COUNT: "Esitos: [COUNT]"
+  SEARCH_NO_RESULTS: "Peruna publicatzione corrispondet a is filtros seletzionados."
 
 ## => Simplified Chinese
 ########################

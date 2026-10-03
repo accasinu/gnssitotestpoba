@@ -38,6 +38,12 @@ html,
   @include flex-direction(column);
   min-height: 100%;
   background-color: $background-color;
+  background-image:
+    linear-gradient(rgba($background-color, .6), rgba($background-color, .6)),
+    url("/assets/images/Sfondo/sfondo.png");
+  background-position: center top;
+  background-repeat: no-repeat, repeat;
+  background-size: cover, 82px auto;
 }
 
 .page__content {
